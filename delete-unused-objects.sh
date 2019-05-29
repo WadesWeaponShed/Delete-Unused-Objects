@@ -54,7 +54,7 @@ elif [ "$OPTION" = "name" ]; then
   sed "s/^/mgmt_cli -s id.txt -d $DOMAIN/" delete-unused-groups-tmp.txt >> delete-unused-objects.txt; rm *tmp*.txt
 fi
 
-sed -i '1s/^/mgmt_cli -r true login > id.txt\n/' delete-unused-objects.txt
+sed -i "1s/^/mgmt_cli -d $DOMAIN -r true login > id.txt\n/" delete-unused-objects.txt
 sed -i '1s/^/echo Deleting objects do not stop script\n/' delete-unused-objects.txt
 echo "mgmt_cli -s id.txt publish" >> delete-unused-objects.txt
 echo "mgmt_cli -s id.txt logout" >> delete-unused-objects.txt
