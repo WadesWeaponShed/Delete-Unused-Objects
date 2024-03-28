@@ -22,7 +22,12 @@ for ((i = 0; i < $total; i += 500)); do
         obj_type=$(_jq '.type')
         obj_name=$(_jq '.name')
 
-        # Output the object to a file
-        echo "$obj_name" >> "$obj_type_$DOMAIN_unused_objects.log"
+        # Create a new file if it doesn't exist and write "name" as the first line
+        if [ ! -f "${obj_type}_${DOMAIN}_unused_objects.log" ]; then
+            echo "name" > "${obj_type}_${DOMAIN}_unused_objects.log"
+        fi
+
+        # Output the object name to the file
+        echo "$obj_name" >> "${obj_type}_${DOMAIN}_unused_objects.log"
     done
 done
